@@ -1,5 +1,5 @@
 import XCTest
-@testable import SystemF
+@testable import AlgorithmW
 
 class TypeTests: XCTestCase {
     func testType() {
