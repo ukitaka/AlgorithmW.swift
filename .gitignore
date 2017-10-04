@@ -69,3 +69,6 @@ fastlane/test_output
 
 # .xcodeproj
 *.xcodeproj
+
+# AppCode
+.idea
