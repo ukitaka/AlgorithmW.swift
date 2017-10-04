@@ -25,3 +25,29 @@ extension Type: Equatable {
         }
     }
 }
+
+extension Type: Types {
+    typealias T = Type
+
+    func ftv() -> Set<String> {
+        switch self {
+        case let .var(name):
+            return Set(arrayLiteral: name)
+        case .int, .bool:
+            return Set()
+        case let .fun(arg, ret):
+            return arg.ftv().union(ret.ftv())
+        }
+    }
+
+    func apply(subst: Subst) -> Type {
+        switch self {
+        case let .var(name):
+            return .var(name) //TODO: ここはsubstができたら治す
+        case .int, .bool:
+            return self
+        case let .fun(arg, ret):
+            return .fun(arg.apply(subst: subst), ret.apply(subst: subst))
+        }
+    }
+}

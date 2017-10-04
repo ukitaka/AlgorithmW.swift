@@ -5,5 +5,5 @@
 protocol Types {
     associatedtype T
     func ftv() -> Set<String>
-    func apply(subst: Subst, type: T) -> T
+    func apply(subst: Subst) -> T
 }
