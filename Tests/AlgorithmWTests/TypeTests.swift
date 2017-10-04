@@ -3,9 +3,10 @@ import XCTest
 
 class TypeTests: XCTestCase {
     func testType() {
-        XCTAssertEqual(Type.typeVar("X"), Type.typeVar("X"))
-        XCTAssertNotEqual(Type.typeVar("X"), Type.typeVar("Y"))
+        XCTAssertEqual(Type.var("X"), Type.var("X"))
+        XCTAssertNotEqual(Type.var("X"), Type.var("Y"))
         XCTAssertEqual(Type.int, Type.int)
         XCTAssertEqual(Type.bool, Type.bool)
+        XCTAssertEqual(Type.fun(.bool, .int), Type.fun(.bool, .int))
     }
 }

@@ -2,7 +2,7 @@
 // Created by ukitaka on 2017/10/04.
 //
 
-struct Term {
+struct Scheme {
+    let names: [String]
     let type: Type
 }
-
