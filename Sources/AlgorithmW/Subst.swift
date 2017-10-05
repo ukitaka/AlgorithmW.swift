@@ -3,4 +3,5 @@
 //
 
 class Subst {
+    let map: [String: Type] = [:]
 }
