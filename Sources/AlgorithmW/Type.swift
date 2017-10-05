@@ -43,7 +43,7 @@ extension Type: Types {
     func apply(subst: Subst) -> Type {
         switch self {
         case let .var(name):
-            return .var(name) //TODO: ここはsubstができたら治す
+            return subst.map[name, default: self]
         case .int, .bool:
             return self
         case let .fun(arg, ret):
