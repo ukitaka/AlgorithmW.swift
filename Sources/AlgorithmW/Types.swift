@@ -4,6 +4,6 @@
 
 protocol Types {
     associatedtype T
-    func ftv() -> Set<String>
+    var freeTypeVariables: Set<TypeVariable> { get }
     func apply(subst: Subst) -> T
 }

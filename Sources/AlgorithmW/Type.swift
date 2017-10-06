@@ -3,22 +3,22 @@
 //
 
 indirect enum Type {
-    case `var`(String)
-    case int
-    case bool
-    case fun(Type, Type)
+    case typeVar(TypeVariable)
+    case integer
+    case boolean
+    case function(Type, Type)
 }
 
 extension Type: Equatable {
     static func ==(lhs: Type, rhs: Type) -> Bool {
         switch (lhs, rhs) {
-        case let (.var(lx), .var(rx)):
+        case let (.typeVar(lx), .typeVar(rx)):
             return lx == rx
-        case (.int, .int):
+        case (.integer, .integer):
             return true
-        case (.bool, .bool):
+        case (.boolean, .boolean):
             return true
-        case let (.fun(argl, retl), .fun(argr, retr)):
+        case let (.function(argl, retl), .function(argr, retr)):
             return argl == argr && retl == retr
         default:
             return false
@@ -29,25 +29,25 @@ extension Type: Equatable {
 extension Type: Types {
     typealias T = Type
 
-    func ftv() -> Set<String> {
+    var freeTypeVariables: Set<TypeVariable> {
         switch self {
-        case let .var(name):
-            return Set(arrayLiteral: name)
-        case .int, .bool:
+        case let .typeVar(typeVar):
+            return Set(arrayLiteral: typeVar)
+        case .integer, .boolean:
             return Set()
-        case let .fun(arg, ret):
-            return arg.ftv().union(ret.ftv())
+        case let .function(arg, ret):
+            return arg.freeTypeVariables.union(ret.freeTypeVariables)
         }
     }
 
     func apply(subst: Subst) -> Type {
         switch self {
-        case let .var(name):
-            return subst.map[name, default: self]
-        case .int, .bool:
+        case let .typeVar(typeVar):
+            return subst.map[typeVar.name, default: self]
+        case .integer, .boolean:
             return self
-        case let .fun(arg, ret):
-            return .fun(arg.apply(subst: subst), ret.apply(subst: subst))
+        case let .function(arg, ret):
+            return .function(arg.apply(subst: subst), ret.apply(subst: subst))
         }
     }
 }
