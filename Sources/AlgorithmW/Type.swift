@@ -13,6 +13,11 @@ extension Type {
     init(_ variableName: String) {
         self = .typeVar(TypeVariable(variableName))
     }
+
+    func generalize(_ typeEnv: TypeEnvironment) -> TypeScheme {
+        let names = freeTypeVariables.subtracting(typeEnv.freeTypeVariables).map { $0.name }
+        return TypeScheme(names: names, type: self)
+    }
 }
 
 extension Type: Equatable {
