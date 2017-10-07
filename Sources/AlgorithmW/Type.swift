@@ -18,8 +18,8 @@ extension Type: Equatable {
             return true
         case (.boolean, .boolean):
             return true
-        case let (.function(argl, retl), .function(argr, retr)):
-            return argl == argr && retl == retr
+        case let (.function(argL, retL), .function(argR, retR)):
+            return argL == argR && retL == retR
         default:
             return false
         }
@@ -40,14 +40,14 @@ extension Type: Types {
         }
     }
 
-    func apply(subst: Subst) -> Type {
+    func apply(substitution: Substitution) -> Type {
         switch self {
         case let .typeVar(typeVar):
-            return subst.map[typeVar.name, default: self]
+            return substitution.map[typeVar.name, default: self]
         case .integer, .boolean:
             return self
         case let .function(arg, ret):
-            return .function(arg.apply(subst: subst), ret.apply(subst: subst))
+            return .function(arg.apply(substitution: substitution), ret.apply(substitution: substitution))
         }
     }
 }

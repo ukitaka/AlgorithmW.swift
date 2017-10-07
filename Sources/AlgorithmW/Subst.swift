@@ -2,7 +2,7 @@
 // Created by ukitaka on 2017/10/04.
 //
 
-struct Subst {
+struct Substitution {
     let map: [String: Type]
 
     init() {
@@ -13,7 +13,7 @@ struct Subst {
         self.map = map
     }
 
-    func compose(other: Subst) -> Subst {
-        return Subst(map: self.map.merging(other.map, uniquingKeysWith: { _, t2 in t2 }))
+    func compose(other: Substitution) -> Substitution {
+        return Substitution(map: self.map.merging(other.map, uniquingKeysWith: { _, t2 in t2 }))
     }
 }
