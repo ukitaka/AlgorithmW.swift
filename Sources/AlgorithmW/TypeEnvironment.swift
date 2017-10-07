@@ -3,14 +3,18 @@
 //
 
 struct TypeEnvironment {
-    private let environment: [Name: TypeScheme]
+    private let environment: [TypeVariable: TypeScheme]
 
-    init(_ environment: [Name: TypeScheme]) {
+    init(_ environment: [TypeVariable: TypeScheme]) {
         self.environment = environment
     }
 
-    func removing(name: String) -> TypeEnvironment {
-        return TypeEnvironment(environment.removing(key: name))
+    func removing(variable: TypeVariable) -> TypeEnvironment {
+        return TypeEnvironment(environment.removing(key: variable))
+    }
+
+    subscript(variable: TypeVariable) -> TypeScheme? {
+        return environment[variable]
     }
 }
 

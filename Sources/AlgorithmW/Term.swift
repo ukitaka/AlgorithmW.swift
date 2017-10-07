@@ -3,7 +3,7 @@
 //
 
 indirect enum Term {
-    case variable(Name)
+    case variable(TypeVariable)
     case literal(Literal)
     case application(Term, Term)
     case abstraction(Name, Term)
