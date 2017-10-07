@@ -21,3 +21,13 @@ extension TypeVariable: Hashable {
         return name.hashValue
     }
 }
+
+extension TypeVariable: ExpressibleByStringLiteral {
+    init(stringLiteral value: StringLiteralType) {
+        self.name = value
+    }
+
+    init(unicodeScalarLiteral value: ExtendedGraphemeClusterLiteralType) {
+        self.name = value
+    }
+}
