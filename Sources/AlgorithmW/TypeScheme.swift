@@ -7,6 +7,14 @@ struct TypeScheme {
     let type: Type
 }
 
+extension TypeScheme {
+    func instantiate() -> Type {
+        let freshTypeVariables = (0..<names.count).map { _ in TypeVariable() }.map(Type.typeVar)
+        let subst = Substitution(Dictionary(keys: names, values: freshTypeVariables))
+        return type.apply(subst)
+    }
+}
+
 extension TypeScheme: Types {
     typealias T = TypeScheme
 

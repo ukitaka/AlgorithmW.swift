@@ -3,10 +3,17 @@
 //
 
 struct TypeVariable {
+    private static var counter: Int = 1
+
     let name: Name
 
     init(_ name: Name) {
         self.name = name
+    }
+
+    init() {
+        self.name = "T\(TypeVariable.counter)"
+        TypeVariable.counter += 1
     }
 }
 

@@ -16,6 +16,18 @@ extension Dictionary {
         }
         return dictionary
     }
+
+    init(keys: [Key], values: [Value]) {
+        precondition(keys.count == values.count)
+        let count = keys.count
+        var dictionary: Dictionary<Key, Value> = [:]
+
+        for i in 0..<count {
+            dictionary[keys[i]] = values[i]
+        }
+
+        self = dictionary
+    }
 }
 
 extension Array where Element: Sequence {
