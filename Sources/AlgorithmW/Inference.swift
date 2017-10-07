@@ -28,6 +28,12 @@ struct Inference {
             let env3 = env2.union(other: TypeEnvironment([variable: TypeScheme(variables: [], type: tv)]))
             let (s1, t1) = typeInference(env: env3, term: term2)
             return (s1, .function(tv.apply(s1), t1))
+        case let .application(termL, termR):
+            let tv = Type.typeVar(TypeVariable())
+            let (s1, t1) = typeInference(env: env, term: termL)
+            let (s2, t2) = typeInference(env: env.apply(s1), term: termR)
+            let s3 = Unification.mgu(t1.apply(s2), .function(t2, tv))
+            return (s3.compose(other: s2).compose(other: s1), tv.apply(s3))
         default:
             fatalError()
         }
