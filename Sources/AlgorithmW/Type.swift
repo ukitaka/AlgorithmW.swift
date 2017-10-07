@@ -52,14 +52,14 @@ extension Type: Types {
         }
     }
 
-    func apply(substitution: Substitution) -> Type {
+    func apply(_ substitution: Substitution) -> Type {
         switch self {
         case let .typeVar(typeVar):
-            return substitution.map[typeVar.name, default: self]
+            return substitution[typeVar.name] ?? self
         case .integer, .boolean:
             return self
         case let .function(arg, ret):
-            return .function(arg.apply(substitution: substitution), ret.apply(substitution: substitution))
+            return .function(arg.apply(substitution), ret.apply(substitution))
         }
     }
 }
@@ -69,9 +69,9 @@ extension Type: CustomStringConvertible {
         switch self {
         case let .typeVar(variable):
             return variable.name
-        case let .integer:
+        case .integer:
             return "Int"
-        case let .boolean:
+        case .boolean:
             return "Bool"
         case let .function(arg, ret):
             return "\(arg) -> \(ret)"

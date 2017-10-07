@@ -15,7 +15,7 @@ extension TypeScheme: Types {
         return type.freeTypeVariables.subtracting(Set(variables))
     }
 
-    func apply(substitution: Substitution) -> TypeScheme {
-        fatalError("not")
+    func apply(_ substitution: Substitution) -> TypeScheme {
+        return TypeScheme(names: names, type: type.apply(substitution.removing(names: names)))
     }
 }

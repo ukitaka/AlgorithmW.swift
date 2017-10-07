@@ -5,5 +5,5 @@
 protocol Types {
     associatedtype T
     var freeTypeVariables: Set<TypeVariable> { get }
-    func apply(substitution: Substitution) -> T
+    func apply(_ substitution: Substitution) -> T
 }
