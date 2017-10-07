@@ -22,6 +22,12 @@ struct Inference {
             }
         case let .literal(literal):
             return typeInferenceLiteral(env: env, literal: literal)
+        case let .abstraction(variable, term2):
+            let tv = Type.typeVar(TypeVariable())
+            let env2 = env.removing(variable: variable)
+            let env3 = env2.union(other: TypeEnvironment([variable: TypeScheme(variables: [], type: tv)]))
+            let (s1, t1) = typeInference(env: env3, term: term2)
+            return (s1, .function(tv.apply(s1), t1))
         default:
             fatalError()
         }

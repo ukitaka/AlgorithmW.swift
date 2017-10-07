@@ -6,6 +6,6 @@ indirect enum Term {
     case variable(TypeVariable)
     case literal(Literal)
     case application(Term, Term)
-    case abstraction(Name, Term)
-    case `let`(Name, Term, Term)
+    case abstraction(TypeVariable, Term)
+    case `let`(TypeVariable, Term, Term)
 }

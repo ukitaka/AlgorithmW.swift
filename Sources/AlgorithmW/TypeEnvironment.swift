@@ -13,6 +13,11 @@ struct TypeEnvironment {
         return TypeEnvironment(environment.removing(key: variable))
     }
 
+    func union(other: TypeEnvironment) -> TypeEnvironment {
+        let e = environment.merging(other.environment, uniquingKeysWith: { _, t in t })
+        return TypeEnvironment(e)
+    }
+
     subscript(variable: TypeVariable) -> TypeScheme? {
         return environment[variable]
     }
