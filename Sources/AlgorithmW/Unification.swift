@@ -12,4 +12,24 @@ struct Unification {
         }
         return Substitution([variable:type])
     }
+
+    static func mgu(_ type1: Type, _ type2: Type) -> Substitution {
+        switch (type1, type2) {
+        case let (.function(arg1, ret1), .function(arg2, ret2)):
+            let s1 = mgu(arg1, arg2)
+            let s2 = mgu(ret1, ret2)
+            return s1.compose(other: s2)
+
+        case let (.typeVar(variable), _):
+            return varBind(variable: variable, type: type2)
+        case let (_, .typeVar(variable)):
+            return varBind(variable: variable, type: type1)
+        case (.integer, .integer):
+            return Substitution()
+        case (.boolean, .boolean):
+            return Substitution()
+        default:
+            fatalError("fails")
+        }
+    }
 }
