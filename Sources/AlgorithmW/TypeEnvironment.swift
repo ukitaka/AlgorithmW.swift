@@ -9,6 +9,12 @@ struct TypeEnvironment {
         self.environment = environment
     }
 
+    func inserting(variable: TypeVariable, scheme: TypeScheme) -> TypeEnvironment {
+        var environment = self.environment
+        environment[variable] = scheme
+        return TypeEnvironment(environment)
+    }
+
     func removing(variable: TypeVariable) -> TypeEnvironment {
         return TypeEnvironment(environment.removing(key: variable))
     }

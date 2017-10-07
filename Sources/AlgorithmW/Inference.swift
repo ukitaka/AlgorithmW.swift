@@ -34,8 +34,13 @@ struct Inference {
             let (s2, t2) = typeInference(env: env.apply(s1), term: termR)
             let s3 = Unification.mgu(t1.apply(s2), .function(t2, tv))
             return (s3.compose(other: s2).compose(other: s1), tv.apply(s3))
-        default:
-            fatalError()
+        case let .let(variable, termBind, termBody):
+            let (s1, t1) = typeInference(env: env, term: termBind)
+            let env2 = env.removing(variable: variable)
+            let td = t1.generalize(env)
+            let env3 = env2.inserting(variable: variable, scheme: td)
+            let (s2, t2) = typeInference(env: env3.apply(s1), term: termBody)
+            return (s1.compose(other: s2), t2)
         }
     }
 }
