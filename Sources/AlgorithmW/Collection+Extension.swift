@@ -17,3 +17,9 @@ extension Dictionary {
         return dictionary
     }
 }
+
+extension Array where Element: Sequence {
+    public func flatten() -> Array<Element.Element> {
+        return flatMap { $0 }
+    }
+}

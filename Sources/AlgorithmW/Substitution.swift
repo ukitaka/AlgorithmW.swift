@@ -24,5 +24,6 @@ struct Substitution {
     subscript(name: Name) -> Type? {
         return map[name]
     }
+
 }
 
