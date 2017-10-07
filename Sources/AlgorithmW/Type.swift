@@ -9,6 +9,12 @@ indirect enum Type {
     case function(Type, Type)
 }
 
+extension Type {
+    init(_ variableName: String) {
+        self = .typeVar(TypeVariable(variableName))
+    }
+}
+
 extension Type: Equatable {
     static func ==(lhs: Type, rhs: Type) -> Bool {
         switch (lhs, rhs) {
@@ -23,6 +29,12 @@ extension Type: Equatable {
         default:
             return false
         }
+    }
+}
+
+extension Type: Hashable {
+    var hashValue: Int {
+        return description.hashValue
     }
 }
 
@@ -48,6 +60,21 @@ extension Type: Types {
             return self
         case let .function(arg, ret):
             return .function(arg.apply(substitution: substitution), ret.apply(substitution: substitution))
+        }
+    }
+}
+
+extension Type: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case let .typeVar(variable):
+            return variable.name
+        case let .integer:
+            return "Int"
+        case let .boolean:
+            return "Bool"
+        case let .function(arg, ret):
+            return "\(arg) -> \(ret)"
         }
     }
 }

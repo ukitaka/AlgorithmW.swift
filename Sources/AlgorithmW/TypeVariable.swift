@@ -4,7 +4,7 @@
 
 struct TypeVariable {
     let name: Name
-    
+
     init(_ name: Name) {
         self.name = name
     }
