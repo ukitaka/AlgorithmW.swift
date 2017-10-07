@@ -3,6 +3,6 @@
 //
 
 struct Scheme {
-    let names: [String]
+    let names: [Name]
     let type: Type
 }

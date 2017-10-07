@@ -3,17 +3,17 @@
 //
 
 struct Substitution {
-    let map: [String: Type]
+    let map: [Name: Type]
 
     init() {
         self.map = [:]
     }
 
-    init(map: [String: Type]) {
+    init(_ map: [String: Type]) {
         self.map = map
     }
 
     func compose(other: Substitution) -> Substitution {
-        return Substitution(map: self.map.merging(other.map, uniquingKeysWith: { _, t2 in t2 }))
+        return Substitution(map.merging(other.map, uniquingKeysWith: { _, t in t }))
     }
 }

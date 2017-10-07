@@ -3,5 +3,5 @@
 //
 
 struct TypeEnvironment {
-    let env: [String: Scheme]
+    let env: [Name: Scheme]
 }

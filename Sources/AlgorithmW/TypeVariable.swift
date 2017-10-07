@@ -3,9 +3,9 @@
 //
 
 struct TypeVariable {
-    let name: String
+    let name: Name
     
-    init(_ name: String) {
+    init(_ name: Name) {
         self.name = name
     }
 }

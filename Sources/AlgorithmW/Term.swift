@@ -3,9 +3,9 @@
 //
 
 indirect enum Term {
-    case variable(String)
+    case variable(Name)
     case literal(Literal)
     case application(Term, Term)
-    case abstraction(String, Term)
-    case `let`(String, Term, Term)
+    case abstraction(Name, Term)
+    case `let`(Name, Term, Term)
 }
