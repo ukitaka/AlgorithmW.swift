@@ -35,3 +35,9 @@ extension Array where Element: Sequence {
         return flatMap { $0 }
     }
 }
+
+extension Set {
+    func toArray() -> Array<Element> {
+        return map { $0 }
+    }
+}

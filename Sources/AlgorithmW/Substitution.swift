@@ -3,13 +3,13 @@
 //
 
 struct Substitution {
-    private let map: [Name: Type]
+    private let map: [TypeVariable: Type]
 
     init() {
         self.map = [:]
     }
 
-    init(_ map: [String: Type]) {
+    init(_ map: [TypeVariable: Type]) {
         self.map = map
     }
 
@@ -17,12 +17,12 @@ struct Substitution {
         return Substitution(map.merging(other.map, uniquingKeysWith: { _, t in t }))
     }
 
-    func removing(names: [Name]) -> Substitution {
-        return Substitution(map.removing(keys: names))
+    func removing(variables: [TypeVariable]) -> Substitution {
+        return Substitution(map.removing(keys: variables))
     }
 
-    subscript(name: Name) -> Type? {
-        return map[name]
+    subscript(variable: TypeVariable) -> Type? {
+        return map[variable]
     }
 
 }

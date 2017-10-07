@@ -15,8 +15,8 @@ extension Type {
     }
 
     func generalize(_ typeEnv: TypeEnvironment) -> TypeScheme {
-        let names = freeTypeVariables.subtracting(typeEnv.freeTypeVariables).map { $0.name }
-        return TypeScheme(names: names, type: self)
+        let variables = freeTypeVariables.subtracting(typeEnv.freeTypeVariables).toArray()
+        return TypeScheme(variables: variables, type: self)
     }
 }
 
@@ -60,7 +60,7 @@ extension Type: Types {
     func apply(_ substitution: Substitution) -> Type {
         switch self {
         case let .typeVar(typeVar):
-            return substitution[typeVar.name] ?? self
+            return substitution[typeVar] ?? self
         case .integer, .boolean:
             return self
         case let .function(arg, ret):

@@ -3,14 +3,14 @@
 //
 
 struct TypeScheme {
-    let names: [Name]
+    let variables: [TypeVariable]
     let type: Type
 }
 
 extension TypeScheme {
     func instantiate() -> Type {
-        let freshTypeVariables = (0..<names.count).map { _ in TypeVariable() }.map(Type.typeVar)
-        let subst = Substitution(Dictionary(keys: names, values: freshTypeVariables))
+        let freshTypeVariables = (0..<variables.count).map { _ in TypeVariable() }.map(Type.typeVar)
+        let subst = Substitution(Dictionary(keys: variables, values: freshTypeVariables))
         return type.apply(subst)
     }
 }
@@ -19,11 +19,10 @@ extension TypeScheme: Types {
     typealias T = TypeScheme
 
     var freeTypeVariables: Set<TypeVariable> {
-        let variables = names.map { TypeVariable($0) }
         return type.freeTypeVariables.subtracting(Set(variables))
     }
 
     func apply(_ substitution: Substitution) -> TypeScheme {
-        return TypeScheme(names: names, type: type.apply(substitution.removing(names: names)))
+        return TypeScheme(variables: variables, type: type.apply(substitution.removing(variables: variables)))
     }
 }
