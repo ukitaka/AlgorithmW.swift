@@ -3,12 +3,12 @@
 //
 
 struct Inference {
-    static func typeInferenceLiteral(env: TypeEnvironment, literal: Literal) -> Type {
+    static func typeInferenceLiteral(env: TypeEnvironment, literal: Literal) -> (Substitution, Type) {
         switch literal {
         case .integer:
-            return .integer
+            return (Substitution(), .integer)
         case .boolean:
-            return .boolean
+            return (Substitution(), .boolean)
         }
     }
 
@@ -20,6 +20,8 @@ struct Inference {
             } else {
                 fatalError()
             }
+        case let .literal(literal):
+            return typeInferenceLiteral(env: env, literal: literal)
         default:
             fatalError()
         }
