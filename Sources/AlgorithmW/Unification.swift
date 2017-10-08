@@ -17,7 +17,7 @@ struct Unification {
         switch (type1, type2) {
         case let (.function(arg1, ret1), .function(arg2, ret2)):
             let s1 = mostGeneralUnifier(arg1, arg2)
-            let s2 = mostGeneralUnifier(ret1, ret2)
+            let s2 = mostGeneralUnifier(ret1.apply(s1), ret2.apply(s1))
             return s1.compose(other: s2)
 
         case let (.typeVar(variable), _):
