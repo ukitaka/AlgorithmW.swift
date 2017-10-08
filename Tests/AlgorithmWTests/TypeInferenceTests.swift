@@ -45,7 +45,7 @@ class TypeInferenceTests: XCTestCase {
         let termId = Term.variable(id)
         let one = Term.literal(Literal.integer(1))
         let term = Term.let(id, .abstraction(x, termX),
-                Term.application(Term.application(termId, termId),  one))
+                Term.application(Term.application(termId, termId),  Term.application(termId, one)))
         let inferredType = Inference.typeInference(env: env, term: term)
         XCTAssertEqual(inferredType, .integer)
     }
