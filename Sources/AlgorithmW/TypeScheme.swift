@@ -26,3 +26,9 @@ extension TypeScheme: Types {
         return TypeScheme(variables: variables, type: type.apply(substitution.removing(variables: variables)))
     }
 }
+
+extension TypeScheme: CustomStringConvertible {
+    var description: String {
+        return variables.map { "∀ " + $0.name }.joined(separator: " ") + " . " + type.description
+    }
+}
