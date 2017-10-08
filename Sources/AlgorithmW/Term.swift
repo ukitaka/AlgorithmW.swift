@@ -22,9 +22,9 @@ extension Term: CustomStringConvertible {
         case let .application(term1, term2):
              return "(\(term1) \(term2))"
         case let .abstraction(variable, term):
-            return "λ \(variable.name).\(term)"
+            return "λ \(variable).\(term)"
         case let .let(variable, bind, body):
-            return "let \(variable.name) = \(bind) in \(body)"
+            return "let \(variable) = \(bind) in \(body)"
         }
     }
 }

@@ -38,3 +38,9 @@ extension TypeVariable: ExpressibleByStringLiteral {
         self.name = value
     }
 }
+
+extension TypeVariable: CustomStringConvertible {
+    var description: String {
+        return name
+    }
+}
