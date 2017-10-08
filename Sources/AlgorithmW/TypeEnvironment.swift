@@ -44,3 +44,9 @@ extension TypeEnvironment: Types {
         return TypeEnvironment(environment.mapValues({ typeScheme in typeScheme.apply(substitution) }))
     }
 }
+
+extension TypeEnvironment: CustomStringConvertible {
+    var description: String {
+        return environment.description
+    }
+}

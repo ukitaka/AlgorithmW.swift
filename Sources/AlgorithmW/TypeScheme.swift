@@ -29,6 +29,9 @@ extension TypeScheme: Types {
 
 extension TypeScheme: CustomStringConvertible {
     var description: String {
+        if variables.isEmpty {
+            return type.description
+        }
         return variables.map { "∀ " + $0.name }.joined(separator: " ") + " . " + type.description
     }
 }

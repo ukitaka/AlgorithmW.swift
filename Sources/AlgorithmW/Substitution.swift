@@ -27,3 +27,8 @@ struct Substitution {
 
 }
 
+extension Substitution: CustomStringConvertible {
+    var description: String {
+        return map.description
+    }
+}
