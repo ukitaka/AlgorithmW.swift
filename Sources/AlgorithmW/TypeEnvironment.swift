@@ -5,6 +5,10 @@
 struct TypeEnvironment {
     private let environment: [TypeVariable: TypeScheme]
 
+    init() {
+        self.environment = [:]
+    }
+
     init(_ environment: [TypeVariable: TypeScheme]) {
         self.environment = environment
     }
