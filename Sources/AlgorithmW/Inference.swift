@@ -32,7 +32,7 @@ struct Inference {
             let tv = Type.typeVar(TypeVariable())
             let (s1, t1) = typeInferenceTerm(env: env, term: termL)
             let (s2, t2) = typeInferenceTerm(env: env.apply(s1), term: termR)
-            let s3 = Unification.mgu(t1.apply(s2), .function(t2, tv))
+            let s3 = Unification.mostGeneralUnifier(t1.apply(s2), .function(t2, tv))
             return (s3.compose(other: s2).compose(other: s1), tv.apply(s3))
         case let .let(variable, termBind, termBody):
             let (s1, t1) = typeInferenceTerm(env: env, term: termBind)
